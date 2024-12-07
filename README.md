@@ -10,13 +10,13 @@ streamlit run main.py
 
 
 ### proj0_incidents.py
-fetchPDFData(url): This function takes the url as a parameter and fetches the pdf data from the url link as a stream
-extractPDFData(data): This function takes the above fetched data and extracts it to raw string format and then formats the data so that it can be inserted into a database table
-createdb(): This function created a database named normanpd.db and established a connection to that database and also created a table named 'incidents' in the database
-populatedb(data,db): This function takes the formatted data and db connection as parameters and populates the table 'incidents' with the provided data
-status(db): This function takes db connection as parameter and queries the 'incident' table to get a list of the nature of incidents and the number of times they have occured
-query_db(query,db_path): This function executes a given SQL query on the normanpd.db database and returns the result as a Pandas DataFrame. It establishes a connection to the database, runs the query, retrieves the data, and then closes the connection.
-fetch_all_data(): This function retrieves all records from the incidents table in the normanpd.db database. It determines the absolute path to the database file, executes a SQL query to fetch all data, and returns the results as a Pandas DataFrame.
+    fetchPDFData(url): This function takes the url as a parameter and fetches the pdf data from the url link as a stream
+    extractPDFData(data): This function takes the above fetched data and extracts it to raw string format and then formats the data so that it can be inserted into a database table
+    createdb(): This function created a database named normanpd.db and established a connection to that database and also created a table named 'incidents' in the database
+    populatedb(data,db): This function takes the formatted data and db connection as parameters and populates the table 'incidents' with the provided data
+    status(db): This function takes db connection as parameter and queries the 'incident' table to get a list of the nature of incidents and the number of times they have occured
+    query_db(query,db_path): This function executes a given SQL query on the normanpd.db database and returns the result as a Pandas DataFrame. It establishes a connection to the database, runs the query, retrieves the data, and then closes the connection.
+    fetch_all_data(): This function retrieves all records from the incidents table in the normanpd.db database. It determines the absolute path to the database file, executes a SQL query to fetch all data, and returns the results as a Pandas DataFrame.
 
 ### main.py
 Main Functions
