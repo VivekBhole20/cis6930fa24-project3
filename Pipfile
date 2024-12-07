@@ -8,6 +8,8 @@ streamlit = "*"
 scikit-learn = "*"
 plotly = "*"
 pypdf = "*"
+seaborn = "*"
+matplotlib = "*"
 
 [dev-packages]
 
