@@ -9,7 +9,7 @@ streamlit run main.py
 # video
 
 
-#Function Description
+# Function Description
 ### proj0_incidents.py
     fetchPDFData(url): This function takes the url as a parameter and fetches the pdf data from the url link as a stream
     extractPDFData(data): This function takes the above fetched data and extracts it to raw string format and then formats the data so that it can be inserted into a database table
