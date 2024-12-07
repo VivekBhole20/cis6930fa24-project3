@@ -2,7 +2,8 @@ import argparse
 
 import urllib.request
 import io
-
+import pandas as pd
+import os
 import re
 import pypdf
 
@@ -12,13 +13,14 @@ def fetchPDFData(url):
     headers={}
     headers['User-Agent']="Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.27 Safari/537.17"
 
-    data=urllib.request.urlopen(urllib.request.Request(url,headers=headers)).read();
+    data=urllib.request.urlopen(urllib.request.Request(url,headers=headers)).read()
     data=io.BytesIO(data)
     #print(data)
-    return data;
+    return data
 
 def extractPDFData(incident_data):
-    reader=pypdf.PdfReader(incident_data)
+    pdf_stream=io.BytesIO(incident_data)
+    reader=pypdf.PdfReader(pdf_stream)
     
     ###DEBUG
 
@@ -81,10 +83,11 @@ def extractPDFData(incident_data):
     return formatted_data
 
 def createdb():
-    con=sqlite3.connect("resources/normanpd.db")
+    con=sqlite3.connect("C:/TechManhindra/GRE/UF/Course Work/DE/Project 3/cis6930fa24-project3/resources/normanpd.db")
     
     cur=con.cursor()
 
+    cur.execute("DROP TABLE IF EXISTS incidents;")
     cur.execute("CREATE TABLE incidents (incident_time TEXT,incident_number TEXT,incident_location TEXT,nature TEXT,incident_ori TEXT);")
 
     ###DEBUG
@@ -95,7 +98,8 @@ def createdb():
     return con
 
 def populatedb(formatted_data,con):
-    cur=con.cursor();
+    print(type(con))
+    cur=con.cursor()
 
     cur.executemany("INSERT INTO  incidents VALUES(?,?,?,?,?)",formatted_data)
     con.commit()
@@ -106,7 +110,7 @@ def populatedb(formatted_data,con):
     ###
 
 def status(con):
-    cur=con.cursor();
+    cur=con.cursor()
 
     for row in cur.execute("SELECT nature,COUNT(nature) FROM incidents GROUP BY nature ORDER BY nature"):
         print(row[0],' | ',row[1])
