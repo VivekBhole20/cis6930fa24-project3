@@ -179,8 +179,6 @@ def visualize_response_agencies(data):
     st.plotly_chart(fig)
 
 def cluster_and_visualize(data, num_clusters=3):
-    st.subheader("Clustering of Incidents")
-
     # Ensure required columns are available
     if "incident_location" not in data.columns or "nature" not in data.columns:
         st.error("Required columns for clustering are missing.")
