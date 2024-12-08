@@ -8,7 +8,11 @@ This project involves fetching data from a given URL to a PDF file, extracting s
 # How to run
 streamlit run main.py
 
-# video
+# Video
+
+
+
+https://github.com/user-attachments/assets/904e92df-ab54-4ecd-951f-88cf77e41be9
 
 
 # Function Description
