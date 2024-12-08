@@ -1,5 +1,7 @@
 # cis6930fa24-project3
 
+Name: Vivek Jitendra Bhole
+
 # Project Description
 This project involves fetching data from a given URL to a PDF file, extracting specific fields from the PDF, formatting the data, and inserting it into a database. A database named normanpd.db is created with a table called incidents to store the extracted data. The project also includes querying the table to generate a list of the nature of incidents and the number of times they have occurred. Additionally, this project now includes visualization of the data and a web interface for user interaction.
 
