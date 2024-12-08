@@ -6,6 +6,7 @@ from sklearn.cluster import KMeans
 import proj0_incidents
 import matplotlib.pyplot as plt
 import seaborn as sns
+import io
 
 def create_heatmap(data):
     # Ensure `date_time` is parsed correctly
@@ -49,7 +50,8 @@ def main():
         uploaded_file = st.sidebar.file_uploader("Upload a PDF file", type="pdf")
         if uploaded_file:
             pdf_data = uploaded_file.read()
-            incidents = proj0_incidents.extractPDFData(pdf_data)
+            pdf_stream=io.BytesIO(pdf_data)
+            incidents = proj0_incidents.extractPDFData(pdf_stream)
             db = proj0_incidents.createdb()
             proj0_incidents.populatedb(incidents,db)
             data = proj0_incidents.fetch_all_data()

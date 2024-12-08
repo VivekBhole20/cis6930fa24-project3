@@ -19,8 +19,7 @@ def fetchPDFData(url):
     return data
 
 def extractPDFData(incident_data):
-    pdf_stream=io.BytesIO(incident_data)
-    reader=pypdf.PdfReader(pdf_stream)
+    reader=pypdf.PdfReader(incident_data)
     
     ###DEBUG
 
