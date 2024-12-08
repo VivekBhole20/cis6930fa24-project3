@@ -35,6 +35,7 @@ Data Input Functions
     visualize_top_locations(data): Displays a bar chart with the top 10 locations where incidents occurred most frequently. This visualization helps in identifying high-incident areas.
     visualize_nature_by_location(data): Generates a stacked bar chart using Plotly to show the distribution of different incident natures at the top 10 locations. This provides insights into the types of incidents occurring in specific areas.
     visualize_response_agencies(data): Creates a donut chart (pie chart with a hole) using Plotly to visualize the distribution of incidents handled by different responding agencies (incident_ori). It highlights which agencies are most active in responding to incidents.
+    cluster_and_visualize(data, num_clusters): This function clusters incident records using the K-Means algorithm with improved initialization (k-means++) and visualizes the clusters in a two-dimensional space. It processes textual data (e.g., incident_location and nature) using TfidfVectorizer to create numerical features. The features are then reduced to two principal components using PCA for better visualization. 
 
 # Database Development
 Created a Database named 'normanpd.db' with the following fields : incident_time, incident_number, incident_location, nature, incident_ori

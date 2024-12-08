@@ -3,6 +3,7 @@ import pandas as pd
 import plotly.express as px
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.cluster import KMeans
+from sklearn.decomposition import PCA
 import proj0_incidents
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -69,6 +70,10 @@ def main():
 
 def visualize_data(data):
     st.header("Incident Report Insights")
+
+    # Clustering records
+    st.subheader("Clustering of Records")
+    cluster_and_visualize(data)
 
     # Visualize incident types
     st.subheader("Frequency of Incident Types")
@@ -171,6 +176,50 @@ def visualize_response_agencies(data):
         title="Distribution of Incidents by Responding Agency",
         hole=0.4  # Creates a donut chart
     )
+    st.plotly_chart(fig)
+
+def cluster_and_visualize(data, num_clusters=3):
+    st.subheader("Clustering of Incidents")
+
+    # Ensure required columns are available
+    if "incident_location" not in data.columns or "nature" not in data.columns:
+        st.error("Required columns for clustering are missing.")
+        return
+
+    # Preprocess data for clustering
+    vectorizer = TfidfVectorizer(stop_words="english")
+    location_features = vectorizer.fit_transform(data["incident_location"].astype(str))
+    
+    nature_vectorizer = TfidfVectorizer(stop_words="english")
+    nature_features = nature_vectorizer.fit_transform(data["nature"].astype(str))
+    
+    # Combine both feature sets
+    combined_features = pd.concat(
+        [pd.DataFrame(location_features.toarray()), pd.DataFrame(nature_features.toarray())],
+        axis=1
+    )
+
+    # Apply KMeans clustering with k-means++ initialization
+    kmeans = KMeans(n_clusters=num_clusters, init="k-means++", random_state=42)
+    data["Cluster"] = kmeans.fit_predict(combined_features)
+
+    # Reduce dimensions for visualization using PCA
+    pca = PCA(n_components=2)
+    reduced_features = pca.fit_transform(combined_features)
+    data["PCA1"] = reduced_features[:, 0]
+    data["PCA2"] = reduced_features[:, 1]
+
+    # Visualize the clusters using Plotly
+    fig = px.scatter(
+        data,
+        x="PCA1",
+        y="PCA2",
+        color="Cluster",
+        title="Cluster Visualization",
+        labels={"PCA1": "Principal Component 1", "PCA2": "Principal Component 2", "Cluster": "Cluster Group"},
+        hover_data=["incident_location", "nature"]
+    )
+    
     st.plotly_chart(fig)
 
 if __name__ == "__main__":
